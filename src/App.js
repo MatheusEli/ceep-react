@@ -1,37 +1,34 @@
 import React, { Component } from "react";
 import ListaDeNotas from "./components/ListaDeNotas";
 import FormularioCadastro from "./components/FormularioCadastro";
-import './assets/App.css';
+import "./assets/App.css";
 
 class App extends Component {
 
   state = {
-    notas: []
+    notas: [],
   };
 
   criarNota(titulo, texto) {
-    let notas = [];
     
     let nota = {
       titulo,
-      texto
-    }
+      texto,
+    };
+    
+    let notas = [...this.state.notas, nota];
 
-    notas.push(...this.state.notas, nota);
+    this.setState({ notas });
 
-    this.setState(
-      {
-        notas
-      }
+    console.log(
+      "Uma nova nota foi criada: titulo = " + titulo + ", texto = " + texto
     );
-
-    console.log("Uma nova nota foi criada: titulo = " + titulo + ", texto = " + texto);
   }
   render() {
     return (
       <section className="conteudo">
         <FormularioCadastro criarNota={this.criarNota.bind(this)} />
-        <ListaDeNotas notas = {this.state.notas}/>
+        <ListaDeNotas notas={this.state.notas} />
       </section>
     );
   }
